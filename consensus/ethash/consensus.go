@@ -485,7 +485,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	block1Reward := egem1BlockReward
 	block2Reward := egem2BlockReward
 	d0Reward := egem0DevReward
-	d1RewardP2 := egem1DevRewardP2
+	d0RewardP2 := egem1DevRewardP2
 	d1Reward := egem1DevReward
   d1RewardP2 := egem1DevRewardP2
 	d2Reward := egem2DevReward
