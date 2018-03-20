@@ -145,9 +145,9 @@ var incompleteNodeURL = regexp.MustCompile("(?i)^(?:enode://)?([0-9a-f]+)$")
 //
 // In the following example, the node URL describes
 // a node with IP address 10.3.58.6, TCP listening port 33666
-// and UDP discovery port 30301.
+// and UDP discovery port 33661.
 //
-//    enode://<hex node id>@10.3.58.6:33666?discport=30301
+//    enode://<hex node id>@10.3.58.6:33666?discport=33661
 func ParseNode(rawurl string) (*Node, error) {
 	if m := incompleteNodeURL.FindStringSubmatch(rawurl); m != nil {
 		id, err := HexID(m[1])
