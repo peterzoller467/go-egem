@@ -44,9 +44,9 @@ var (
 
 //  EGEM Variables
 var (
-	egem0BlockReward                *big.Int = big.NewInt(8e+18) //  8 EGEM Block reward in wei for successfully mining a block.
-	egem1BlockReward                *big.Int = big.NewInt(4e+18) //  4 EGEM Block reward in wei for successfully mining a block.
-	egem2BlockReward                *big.Int = big.NewInt(2e+18) //  2 EGEM Block reward in wei for successfully mining a block.
+	egem0BlockReward                *big.Int = big.NewInt(8e+18) //  8 EGEM Block reward in wei for successfully mining a block. (ERA0)
+	egem1BlockReward                *big.Int = big.NewInt(4e+18) //  4 EGEM Block reward in wei for successfully mining a block. (ERA1)
+	egem2BlockReward                *big.Int = big.NewInt(2e+18) //  2 EGEM Block reward in wei for successfully mining a block. (ERA2)
 	egem0DevReward                  *big.Int = big.NewInt(1e+18) // Era0 Dev reward 1 EGEM per block.
   egem0DevRewardP2								*big.Int = big.NewInt(750000000000000000) // Era0 Part two 0.75 EGEM per block.
 	egem1DevReward                  *big.Int = big.NewInt(500000000000000000) // Era1 Dev reward 0.5 EGEM per block.
