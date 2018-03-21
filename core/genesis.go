@@ -318,7 +318,10 @@ func DefaultGenesisBlock() *Genesis {
 		Timestamp:  1492009146,
 		//1522393200
 		//17179869184
-		Difficulty: big.NewInt(1717986),
+		//190019876660
+		//2129553840825
+		//4529553840825
+		Difficulty: big.NewInt(2129553840825),
 		Alloc:      decodePrealloc(mainnetAllocData),
 	}
 }

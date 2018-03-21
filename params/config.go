@@ -28,6 +28,8 @@ var (
 	TestnetGenesisHash = common.HexToHash("0x42b6a7d113fe1f4acc35da7d8f542d5d19794047433726451c25925ef2783dcd") // Testnet genesis hash to enforce below configs on
 )
 
+//33661
+//33666
 var (
 	// MainnetChainConfig is the chain parameters to run a node on the main network.
 	MainnetChainConfig = &ChainConfig{

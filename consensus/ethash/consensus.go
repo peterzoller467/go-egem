@@ -52,11 +52,11 @@ var (
 	egem1DevReward                  *big.Int = big.NewInt(500000000000000000) // Era1 Dev reward 0.5 EGEM per block.
 	egem1DevRewardP2								*big.Int = big.NewInt(250000000000000000) // Era1 Part Two 0.25 EGEM per block
 	egem2DevReward                  *big.Int = big.NewInt(100000000000000000) // Era2 Dev reward 0.1 EGEM per block.
-	egemRewardSwitchBlockEra0       *big.Int = big.NewInt(5000) //5K Block era transition
-	egemRewardSwitchBlockEra0P2			*big.Int = big.NewInt(5000000) // 5M block dev fee transition
-	egemRewardSwitchBlockEra1       *big.Int = big.NewInt(10000000) // 10M block era transition
-	egemRewardSwitchBlockEra1P2     *big.Int = big.NewInt(15000000) // 15M block dev fee transition
-	egemRewardSwitchBlockEra2       *big.Int = big.NewInt(20000000) // 20M block era transtiton
+	egemRewardSwitchBlockEra0       *big.Int = big.NewInt(5) //5K Block era transition
+	egemRewardSwitchBlockEra0P2			*big.Int = big.NewInt(50) // 5M block dev fee transition
+	egemRewardSwitchBlockEra1       *big.Int = big.NewInt(100) // 10M block era transition
+	egemRewardSwitchBlockEra1P2     *big.Int = big.NewInt(150) // 15M block dev fee transition
+	egemRewardSwitchBlockEra2       *big.Int = big.NewInt(200) // 20M block era transtiton
 	devFund 												= common.HexToAddress("0xdA55B9723b10dF6958FA9D5Ee69c89BF6fCe9f3D") //r
 )
 
@@ -485,7 +485,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	block1Reward := egem1BlockReward
 	block2Reward := egem2BlockReward
 	d0Reward := egem0DevReward
-	d0RewardP2 := egem1DevRewardP2
+	d0RewardP2 := egem0DevRewardP2
 	d1Reward := egem1DevReward
   d1RewardP2 := egem1DevRewardP2
 	d2Reward := egem2DevReward
