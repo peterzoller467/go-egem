@@ -44,19 +44,27 @@ var (
 
 //  EGEM Variables
 var (
-	egem0BlockReward                *big.Int = big.NewInt(8e+18) //  8 EGEM Block reward in wei for successfully mining a block. (ERA0)
-	egem1BlockReward                *big.Int = big.NewInt(4e+18) //  4 EGEM Block reward in wei for successfully mining a block. (ERA1)
-	egem2BlockReward                *big.Int = big.NewInt(2e+18) //  2 EGEM Block reward in wei for successfully mining a block. (ERA2)
-	egem0DevReward                  *big.Int = big.NewInt(1e+18) // Era0 Dev reward 1 EGEM per block.
-  egem0DevRewardP2								*big.Int = big.NewInt(750000000000000000) // Era0 Part two 0.75 EGEM per block.
-	egem1DevReward                  *big.Int = big.NewInt(500000000000000000) // Era1 Dev reward 0.5 EGEM per block.
-	egem1DevRewardP2								*big.Int = big.NewInt(250000000000000000) // Era1 Part Two 0.25 EGEM per block
-	egem2DevReward                  *big.Int = big.NewInt(100000000000000000) // Era2 Dev reward 0.1 EGEM per block.
-	egemRewardSwitchBlockEra0       *big.Int = big.NewInt(5) //5K Block era transition
-	egemRewardSwitchBlockEra0P2			*big.Int = big.NewInt(50) // 5M block dev fee transition
-	egemRewardSwitchBlockEra1       *big.Int = big.NewInt(100) // 10M block era transition
-	egemRewardSwitchBlockEra1P2     *big.Int = big.NewInt(150) // 15M block dev fee transition
-	egemRewardSwitchBlockEra2       *big.Int = big.NewInt(200) // 20M block era transtiton
+	egem0BlockReward                *big.Int = big.NewInt(8e+18)              //  8 EGEM Block reward in wei for successfully mining a block.     (ERA0)
+	egem1BlockReward                *big.Int = big.NewInt(4e+18)              //  4 EGEM Block reward in wei for successfully mining a block.     (ERA1)
+	egem2BlockReward                *big.Int = big.NewInt(2e+18)              //  2 EGEM Block reward in wei for successfully mining a block.     (ERA2)
+	egem3BlockReward                *big.Int = big.NewInt(1e+18)              //  1 EGEM Block reward in wei for successfully mining a block.     (ERA3)
+	egem4BlockReward                *big.Int = big.NewInt(500000000000000000) //  0.5 EGEM Block reward in wei for successfully mining a block.   (ERA4)
+	egem5BlockReward                *big.Int = big.NewInt(250000000000000000) //  0.25 EGEM Block reward in wei for successfully mining a block.  (ERA5)
+	egem6BlockReward                *big.Int = big.NewInt(125000000000000000) //  0.125 EGEM Block reward in wei for successfully mining a block. (ERA6)
+	egem0DevReward                  *big.Int = big.NewInt(1e+18)              //  Era0 1 EGEM per block.
+  egem1DevReward								  *big.Int = big.NewInt(750000000000000000) //  Era1 0.75 EGEM per block.
+	egem2DevReward                  *big.Int = big.NewInt(500000000000000000) //  Era2 0.5 EGEM per block.
+	egem3DevReward								  *big.Int = big.NewInt(250000000000000000) //  Era3 0.25 EGEM per block
+	egem4DevReward                  *big.Int = big.NewInt(100000000000000000) //  Era4 0.1 EGEM per block.
+	egem5DevReward                  *big.Int = big.NewInt(50000000000000000)  //  Era5 0.05 EGEM per block.
+	egem6DevReward                  *big.Int = big.NewInt(25000000000000000)  //  Era6 0.025 EGEM per block.
+	egemRewardSwitchBlockEra0       *big.Int = big.NewInt(5000)               //  5K Block transition
+	egemRewardSwitchBlockEra1			  *big.Int = big.NewInt(2500000)            //  2.5M block transition
+	egemRewardSwitchBlockEra2       *big.Int = big.NewInt(5000000)            //  5M block transition
+	egemRewardSwitchBlockEra3       *big.Int = big.NewInt(7500000)            //  7.5M block transition
+	egemRewardSwitchBlockEra4       *big.Int = big.NewInt(10000000)           //  10M block transtiton
+	egemRewardSwitchBlockEra5       *big.Int = big.NewInt(12500000)           //  12.5M block transtiton
+	egemRewardSwitchBlockEra6       *big.Int = big.NewInt(15000000)           //  15M block transtiton
 	devFund 												= common.HexToAddress("0xdA55B9723b10dF6958FA9D5Ee69c89BF6fCe9f3D") //r
 )
 
@@ -330,31 +338,23 @@ var (
 	big1          = big.NewInt(1)
 	big2          = big.NewInt(2)
 	big9          = big.NewInt(9)
-	big10         = big.NewInt(10)
-	big15					= big.NewInt(15)
-	big20         = big.NewInt(20)
-	big50         = big.NewInt(50)
 	bigMinus99    = big.NewInt(-99)
 	big2999999    = big.NewInt(2999999)
 )
 
 // EGEM Era Difficulty Algo
-//
-// Launch 0 - 5000 50% Difficulty*
-// Requiem Era0 5001 - 10,000,000 20% Difficulty**
-// Solstice Era1 10,000,001 - 20,000,000 15% Difficulty*
-// Oblivion Era2 20,000,001 + 10% Difficulty*
-//
 // * +/- adjustment per block
-// ** Dev fee is enabled at this Era start.
 //
+
+var (
+	big3         = big.NewInt(3)
+	big5				 = big.NewInt(5)
+)
 
 func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	diff := new(big.Int)
-	adjust0 := new(big.Int).Div(parent.Difficulty, big10)
-	adjust1 := new(big.Int).Div(parent.Difficulty, big15)
-	adjust2 := new(big.Int).Div(parent.Difficulty, big20)
-	adjust3 := new(big.Int).Div(parent.Difficulty, big50)
+	adjust0 := new(big.Int).Mul(parent.Difficulty, big3)
+	adjust1 := new(big.Int).Mul(parent.Difficulty, big5)
 
 	bigTime := new(big.Int)
 	bigParentTime := new(big.Int)
@@ -362,47 +362,16 @@ func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	bigTime.SetUint64(time)
 	bigParentTime.Set(parent.Time)
 
-	if (parent.Number.Cmp(egemRewardSwitchBlockEra2) == 1) {
-			if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-				diff.Add(parent.Difficulty, adjust0)
-			} else {
-				diff.Sub(parent.Difficulty, adjust0)
-			}
-			if diff.Cmp(params.MinimumDifficulty) < 0 {
-				diff.Set(params.MinimumDifficulty)
-			}
-			return diff
-	} else if (parent.Number.Cmp(egemRewardSwitchBlockEra1) == 1) {
-			if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-				diff.Add(parent.Difficulty, adjust1)
-			} else {
-				diff.Sub(parent.Difficulty, adjust1)
-			}
-			if diff.Cmp(params.MinimumDifficulty) < 0 {
-				diff.Set(params.MinimumDifficulty)
-			}
-			return diff
-	} else if (parent.Number.Cmp(egemRewardSwitchBlockEra0) == 1) {
-			if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-				diff.Add(parent.Difficulty, adjust2)
-			} else {
-				diff.Sub(parent.Difficulty, adjust2)
-			}
-			if diff.Cmp(params.MinimumDifficulty) < 0 {
-				diff.Set(params.MinimumDifficulty)
-			}
-			return diff
+	if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
+		diff.Add(parent.Difficulty, adjust0)
 	} else {
-			if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-				diff.Add(parent.Difficulty, adjust3)
-			} else {
-				diff.Sub(parent.Difficulty, adjust3)
-			}
-			if diff.Cmp(params.MinimumDifficulty) < 0 {
-				diff.Set(params.MinimumDifficulty)
-			}
-			return diff
+		diff.Sub(parent.Difficulty, adjust1)
 	}
+	if diff.Cmp(params.MinimumDifficulty) < 0 {
+		diff.Set(params.MinimumDifficulty)
+	}
+	return diff
+
 }
 
 // VerifySeal implements consensus.Engine, checking whether the given block satisfies
@@ -484,16 +453,80 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	block0Reward := egem0BlockReward
 	block1Reward := egem1BlockReward
 	block2Reward := egem2BlockReward
+	block3Reward := egem3BlockReward
+	block4Reward := egem4BlockReward
+	block5Reward := egem5BlockReward
+	block6Reward := egem6BlockReward
 	d0Reward := egem0DevReward
-	d0RewardP2 := egem0DevRewardP2
 	d1Reward := egem1DevReward
-  d1RewardP2 := egem1DevRewardP2
 	d2Reward := egem2DevReward
+  d3Reward := egem3DevReward
+	d4Reward := egem4DevReward
+	d5Reward := egem5DevReward
+	d6Reward := egem6DevReward
 
 	// Accumulate the rewards for the miner and any included uncles
+	if (header.Number.Cmp(egemRewardSwitchBlockEra6) == 1) {
+			reward := new(big.Int).Set(block6Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
+					r.Add(uncle.Number, big8)
+					r.Sub(r, header.Number)
+					r.Mul(r, reward)
+					r.Div(r, big8)
 
-	// Final form of rewards and blocks 2/0.1. 10% Difficulty adjustment per block
-	if (header.Number.Cmp(egemRewardSwitchBlockEra2) == 1) {
+					r.Div(reward, big32)
+					reward.Add(reward, r)
+			}
+		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d6Reward)
+
+	} else if (header.Number.Cmp(egemRewardSwitchBlockEra5) == 1) {
+			reward := new(big.Int).Set(block5Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
+					r.Add(uncle.Number, big8)
+					r.Sub(r, header.Number)
+					r.Mul(r, reward)
+					r.Div(r, big8)
+
+					r.Div(reward, big32)
+					reward.Add(reward, r)
+			}
+		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d5Reward)
+
+	} else if (header.Number.Cmp(egemRewardSwitchBlockEra4) == 1) {
+			reward := new(big.Int).Set(block4Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
+					r.Add(uncle.Number, big8)
+					r.Sub(r, header.Number)
+					r.Mul(r, reward)
+					r.Div(r, big8)
+
+					r.Div(reward, big32)
+					reward.Add(reward, r)
+			}
+		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d4Reward)
+
+	} else if (header.Number.Cmp(egemRewardSwitchBlockEra3) == 1) {
+			reward := new(big.Int).Set(block3Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
+					r.Add(uncle.Number, big8)
+					r.Sub(r, header.Number)
+					r.Mul(r, reward)
+					r.Div(r, big8)
+
+					r.Div(reward, big32)
+					reward.Add(reward, r)
+			}
+		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d3Reward)
+
+	} else if (header.Number.Cmp(egemRewardSwitchBlockEra2) == 1) {
 			reward := new(big.Int).Set(block2Reward)
 			r := new(big.Int)
 			for _, uncle := range uncles {
@@ -506,33 +539,12 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					reward.Add(reward, r)
 			}
 		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d2Reward)
 
-		//dev rewards
-		state.AddBalance(devFund, d2Reward) //ridz
-
-	//Era1 Reward scheme Block and dev reward part two 4/0.25. 15% Difficulty adjustment per block
-	} else if (header.Number.Cmp(egemRewardSwitchBlockEra1P2) == 1) {
-		reward := new(big.Int).Set(block1Reward)
-		r := new(big.Int)
-		for _, uncle := range uncles {
-					r.Add(uncle.Number, big8)
-					r.Sub(r, header.Number)
-					r.Mul(r, reward)
-					r.Div(r, big8)
-
-					r.Div(reward, big32)
-					reward.Add(reward, r)
-			}
-		state.AddBalance(header.Coinbase, reward)
-
-		//dev rewards
-		state.AddBalance(devFund, d1RewardP2) //ridz
-
-	//Era1 Reward scheme Block and dev reward halving 4/0.5. 15% Difficulty adjustment per block
 	} else if (header.Number.Cmp(egemRewardSwitchBlockEra1) == 1) {
-		reward := new(big.Int).Set(block1Reward)
-		r := new(big.Int)
-		for _, uncle := range uncles {
+			reward := new(big.Int).Set(block1Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
 					r.Add(uncle.Number, big8)
 					r.Sub(r, header.Number)
 					r.Mul(r, reward)
@@ -542,33 +554,12 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					reward.Add(reward, r)
 			}
 		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d1Reward)
 
-		//dev rewards
-		state.AddBalance(devFund, d1Reward) //ridz
-
-	//Era1 Reward scheme Block and dev reward halving 8/0.75. 20% Difficulty adjustment per block
-	} else if (header.Number.Cmp(egemRewardSwitchBlockEra0P2) == 1) {
-		reward := new(big.Int).Set(block0Reward)
-		r := new(big.Int)
-		for _, uncle := range uncles {
-					r.Add(uncle.Number, big8)
-					r.Sub(r, header.Number)
-					r.Mul(r, reward)
-					r.Div(r, big8)
-
-					r.Div(reward, big32)
-					reward.Add(reward, r)
-			}
-		state.AddBalance(header.Coinbase, reward)
-
-		//dev rewards
-		state.AddBalance(devFund, d0RewardP2) //ridz
-
-  //Era0 Reward of block and dev reward 8/1 EGEM. 20% Difficulty adjustment per block
 	} else if (header.Number.Cmp(egemRewardSwitchBlockEra0) == 1) {
-		reward := new(big.Int).Set(block0Reward)
-		r := new(big.Int)
-		for _, uncle := range uncles {
+			reward := new(big.Int).Set(block0Reward)
+			r := new(big.Int)
+			for _, uncle := range uncles {
 					r.Add(uncle.Number, big8)
 					r.Sub(r, header.Number)
 					r.Mul(r, reward)
@@ -578,12 +569,9 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					reward.Add(reward, r)
 			}
 		state.AddBalance(header.Coinbase, reward)
+		state.AddBalance(devFund, d0Reward)
 
-		//dev rewards
-		state.AddBalance(devFund, d0Reward) //ridz
-
-	// Launch upto block 5000 with a 50% Difficulty adjustment per block, 8 EGEM reward.
-	} else  {
+	} else {
 		reward := new(big.Int).Set(block0Reward)
 		r := new(big.Int)
 		for _, uncle := range uncles {
