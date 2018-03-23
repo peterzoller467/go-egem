@@ -336,8 +336,8 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 var (
 	expDiffPeriod = big.NewInt(100000)
 	big1          = big.NewInt(1)
-	big3         = big.NewInt(3)
 	big2          = big.NewInt(2)
+	big3          = big.NewInt(3)
 	big9          = big.NewInt(9)
 	bigMinus99    = big.NewInt(-99)
 	big2999999    = big.NewInt(2999999)
@@ -346,6 +346,8 @@ var (
 // EGEM Difficulty Algo
 // * +/- adjustment per block
 //
+// if blocktime < 13 then parent diff x parent diff
+// if blocktime > 13 then divide parent diff by 3.
 
 func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	diff := new(big.Int)
@@ -367,7 +369,6 @@ func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 		diff.Set(params.MinimumDifficulty)
 	}
 	return diff
-
 }
 
 // VerifySeal implements consensus.Engine, checking whether the given block satisfies
