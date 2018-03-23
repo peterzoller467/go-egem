@@ -336,6 +336,7 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 var (
 	expDiffPeriod = big.NewInt(100000)
 	big1          = big.NewInt(1)
+	big3         = big.NewInt(3)
 	big2          = big.NewInt(2)
 	big9          = big.NewInt(9)
 	bigMinus99    = big.NewInt(-99)
@@ -346,15 +347,10 @@ var (
 // * +/- adjustment per block
 //
 
-var (
-	big3         = big.NewInt(1)
-	big5				 = big.NewInt(3)
-)
-
 func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	diff := new(big.Int)
-	adjust0 := new(big.Int).Mul(parent.Difficulty, big3)
-	adjust1 := new(big.Int).Mul(parent.Difficulty, big5)
+	adjust0 := new(big.Int).Mul(parent.Difficulty, big1)
+	adjust1 := new(big.Int).Mul(parent.Difficulty, big3)
 
 	bigTime := new(big.Int)
 	bigParentTime := new(big.Int)
