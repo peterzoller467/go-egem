@@ -342,13 +342,13 @@ var (
 	big2999999    = big.NewInt(2999999)
 )
 
-// EGEM Era Difficulty Algo
+// EGEM Difficulty Algo
 // * +/- adjustment per block
 //
 
 var (
-	big3         = big.NewInt(3)
-	big5				 = big.NewInt(5)
+	big3         = big.NewInt(1)
+	big5				 = big.NewInt(3)
 )
 
 func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
