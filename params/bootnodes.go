@@ -20,8 +20,7 @@ package params
 // the main Ethereum network.
 var MainnetBootnodes = []string{
 // Egem Go Bootnodes
-"enode://2fd842254c875864eec5de706bab9e6a9b623bda8851f705263c94875f01fde23dde2f1f537a807ac4a8ea71572fec484bbe43afdd529a4b69dd6e6d42bccf06@[::]:30666",
-"enode://f72171b11d0d7d785b84d6b7940a34277bb415ca5c802020c6913eee2c896c91120b719258dd22ad2a108d7197148eb90e31224678fda02b762fb89abb6b0862@[::]:30666",
+
 
 }
 
