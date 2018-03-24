@@ -321,7 +321,7 @@ func DefaultGenesisBlock() *Genesis {
 		//190019876660
 		//2129553840825
 		//4529553840825
-		Difficulty: big.NewInt(152239320),
+		Difficulty: big.NewInt(1310753900),
 		Alloc:      decodePrealloc(mainnetAllocData),
 	}
 }
