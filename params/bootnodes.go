@@ -22,6 +22,7 @@ var MainnetBootnodes = []string{
 // Egem Go Bootnodes
 "enode://e8aa9c54467ef17224f5de762a56d37b81d5800b542ec90b92fabc10c1b4363bd0a53e36bd33faa92908c55d2062b1bb85fcb4a883b63900ab12bbfd5e42c507@[154.20.195.166]:30666",
 "enode://b668c1f7ba500ae82e0ba696ee62f3e4e041b5f3ca606c817a51e62ba2dbcdf90686f0d76eef072a0b5058fe6bd782640946fc6c92c36e22c64dfe639569c7c5@[199.247.0.245]:30666",
+"enode://7228d130022fa0cf5be1f17dcb8422ba17d5f49faf7fcaa6d132870ae81985c6a322c3b0c2c489fc79f1a7bbdb86ae090f015c401332ca39a22138434f41a2f7@[45.77.210.216]:30666",
 }
 
 // TestnetBootnodes are the enode URLs of the P2P bootstrap nodes running on the
