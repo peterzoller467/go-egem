@@ -317,11 +317,7 @@ func DefaultGenesisBlock() *Genesis {
 		GasLimit:   3141592,
 		Timestamp:  1492009146,
 		//1522393200
-		//17179869184
-		//190019876660
-		//2129553840825
-		//4529553840825
-		Difficulty: big.NewInt(1310753900),
+		Difficulty: big.NewInt(113635671),
 		Alloc:      decodePrealloc(mainnetAllocData),
 	}
 }

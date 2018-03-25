@@ -334,25 +334,21 @@ func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Heade
 
 // Some weird constants to avoid constant memory allocs for them.
 var (
-	expDiffPeriod = big.NewInt(100000)
 	big1          = big.NewInt(1)
 	big2          = big.NewInt(2)
 	big3          = big.NewInt(3)
-	big9          = big.NewInt(9)
-	bigMinus99    = big.NewInt(-99)
-	big2999999    = big.NewInt(2999999)
+	big7          = big.NewInt(7)
 )
 
 // EGEM Difficulty Algo
 // * +/- adjustment per block
+// including a randomizer
 //
-// if blocktime < 13 then parent diff x parent diff
-// if blocktime > 13 then divide parent diff by 3.
 
 func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	diff := new(big.Int)
-	adjust0 := new(big.Int).Mul(parent.Difficulty, big1)
-	adjust1 := new(big.Int).Mul(parent.Difficulty, big3)
+	adjustUp := new(big.Int).Div(parent.Difficulty, big7)
+	adjustDown := new(big.Int).Div(parent.Difficulty, big3)
 
 	bigTime := new(big.Int)
 	bigParentTime := new(big.Int)
@@ -361,13 +357,18 @@ func calcDifficultyEGEM(time uint64, parent *types.Header) *big.Int {
 	bigParentTime.Set(parent.Time)
 
 	if bigTime.Sub(bigTime, bigParentTime).Cmp(params.DurationLimit) < 0 {
-		diff.Add(parent.Difficulty, adjust0)
+		diff.Add(parent.Difficulty, big7)
+		diff.Add(diff, adjustUp)
 	} else {
-		diff.Sub(parent.Difficulty, adjust1)
+		diff.Sub(parent.Difficulty, big3)
+		diff.Sub(diff, adjustDown)
 	}
+
 	if diff.Cmp(params.MinimumDifficulty) < 0 {
 		diff.Set(params.MinimumDifficulty)
 	}
+
+	fmt.Println("Next Block Difficulty: ", diff)
 	return diff
 }
 
@@ -475,6 +476,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d6Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d6Reward)
 
@@ -490,6 +492,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d5Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d5Reward)
 
@@ -505,6 +508,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d4Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d4Reward)
 
@@ -520,6 +524,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d3Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d3Reward)
 
@@ -535,6 +540,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d2Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d2Reward)
 
@@ -550,6 +556,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d1Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d1Reward)
 
@@ -565,6 +572,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
+		fmt.Println("Miner Block Reward:", reward, "in Wei.", "|", "Dev Block Fee:", d0Reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 		state.AddBalance(devFund, d0Reward)
 
@@ -580,7 +588,7 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 					r.Div(reward, big32)
 					reward.Add(reward, r)
 			}
-
+		fmt.Println("Miner Block Reward:", reward, "in Wei.")
 		state.AddBalance(header.Coinbase, reward)
 	}
 
