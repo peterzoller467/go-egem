@@ -21,8 +21,6 @@ package params
 var MainnetBootnodes = []string{
 // Egem Go Bootnodes
 "enode://8780bf03fcea2e6debf8067b0709692fd2f7bb7c13aee3b7ef253f634da0c1900e0c9b6edb79fa41dbaf92de327008e9c6631ba720ed9e7ad552eb2bfd8363b3@[154.20.195.166]:30666",
-"enode://4ebfe5ab01bc7c8b583489fa5bcdd158937193a4d544014e2528b4d88ffb191b5238a85f88aa894d8561b486d35d6fb955e393a95adba977d4c81ea742991b88@[199.247.0.245]:30666",
-"enode://b11971cc7818b71cb84b2684bb3b451a1a3490c9fa847ab12abbcef4ca44451ee38dce78d36127c2c436ea47d5172bfdd4a96e7fe7951a43de78d85199dee8cd@[45.77.210.216]:30666",
 }
 
 // TestnetBootnodes are the enode URLs of the P2P bootstrap nodes running on the
